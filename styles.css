@@ -4,15 +4,20 @@
     padding: 0;
 }
 
-#main {
-    position: absolute;
-    left: 100px;
+.array-container {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    height: 600px;
 }
+
 .array-bar {
     width: 10px;
     background-color: #d9d9d9;
-    display: inline-block;
-    margin: 0 5px;
+}
+
+.generate-button {
+    margin-top: 20px;
 }
 /* #nav {
     display: flex;
