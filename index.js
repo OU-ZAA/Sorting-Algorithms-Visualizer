@@ -1,7 +1,7 @@
 const arraySize = 42;
 const arrayContainer = document.getElementsByClassName('array-container')[0];
 const arrayGenerator = document.getElementById('generate-button');
-const sortButton = document.getElementById('sorting-button');
+const selectionSortButton = document.getElementById('selection-sortbtn');
 let arr = [];
 
 document.addEventListener('DOMContentLoaded', function() 
@@ -16,9 +16,9 @@ arrayGenerator.addEventListener('click', function()
     renderNewArrayElements(arr); 
 });
 
-sortButton.addEventListener('click', function() 
+selectionSortButton.addEventListener('click', function() 
 {   
-    selectionSort(arr, arraySize);
+    selectionSort(arr);
     renderNewArrayElements(arr);
 });
 
@@ -56,15 +56,21 @@ function randonIntFromInterval(min, max)
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-function selectionSort(array, n) 
+function selectionSort(array) 
 {
-    let i = 0;
-    while(i < n-1)
+    for (let i = 0; i < array.length; i++)
     {
-        let j = locOfSmallest(array, i, n-1);
-        swap(array, i, j);
-        i++;
+        let min = i;
+        for (let j = i + 1; j < array.length; j++)
+        {
+            if (array[j] < array[min])
+            {
+                min = j;
+            }
+        }
+        if (i !== min) swap(array, i, min);
     }
+    return array;
 }
 
 function swap(array, x, y)
@@ -72,19 +78,4 @@ function swap(array, x, y)
     let temp = array[x];
     array[x] = array[y];
     array[y] = temp;
-}
-
-function locOfSmallest(array, start, end) 
-{
-    let i = start;
-    let j = i;
-    while (i <= end)
-    {
-        if (array[i] < array[j])
-        {
-            j = i;
-        }
-        i++;
-    }
-    return j;
 }
