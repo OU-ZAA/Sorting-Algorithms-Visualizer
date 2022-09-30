@@ -3,6 +3,7 @@ const arrayContainer = document.getElementsByClassName('array-container')[0];
 const arrayGenerator = document.getElementById('generate-button');
 const selectionSortButton = document.getElementById('selection-sortbtn');
 const mergeSortButton = document.querySelector('#merge-sortbtn');
+const bubbleSortButton = document.querySelector('#bubble-sortbtn');
 let arr = [];
 
 document.addEventListener('DOMContentLoaded', function() 
@@ -27,6 +28,10 @@ mergeSortButton.addEventListener('click', function()
     renderNewArrayElements(mergeSort(arr));
 });
 
+bubbleSortButton.addEventListener('click', function()
+{
+    renderNewArrayElements(bubbleSort(arr));
+})
 
 function generateNewArray(array) 
 {
@@ -76,13 +81,6 @@ function selectionSort(array)
         if (i !== min) swap(array, i, min);
     }
     return array;
-}
-
-function swap(array, x, y)
-{
-    const temp = array[x];
-    array[x] = array[y];
-    array[y] = temp;
 }
 
 function mergeSort(array)
@@ -135,4 +133,29 @@ function merge(leftList, rightList)
     }
 
     return sorted;
+}
+
+function bubbleSort(array)
+{
+    let i = 0;
+    const len = array.length;
+    while (i < len)
+    {
+        for (let j = 0; j < len - 1; j++)
+        {
+            if (array[j] > array[j+1])
+            {
+                swap(array, j, j+1);
+            }
+        }
+        i++;
+    }
+    return array;
+}
+
+function swap(array, x, y)
+{
+    const temp = array[x];
+    array[x] = array[y];
+    array[y] = temp;
 }
