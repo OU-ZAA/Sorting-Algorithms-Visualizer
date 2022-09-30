@@ -2,6 +2,7 @@ const arraySize = 42;
 const arrayContainer = document.getElementsByClassName('array-container')[0];
 const arrayGenerator = document.getElementById('generate-button');
 const selectionSortButton = document.getElementById('selection-sortbtn');
+const mergeSortButton = document.querySelector('#merge-sortbtn');
 let arr = [];
 
 document.addEventListener('DOMContentLoaded', function() 
@@ -18,8 +19,12 @@ arrayGenerator.addEventListener('click', function()
 
 selectionSortButton.addEventListener('click', function() 
 {   
-    selectionSort(arr);
-    renderNewArrayElements(arr);
+    renderNewArrayElements(selectionSort(arr));
+});
+
+mergeSortButton.addEventListener('click', function() 
+{
+    renderNewArrayElements(mergeSort(arr));
 });
 
 
@@ -75,7 +80,59 @@ function selectionSort(array)
 
 function swap(array, x, y)
 {
-    let temp = array[x];
+    const temp = array[x];
     array[x] = array[y];
     array[y] = temp;
+}
+
+function mergeSort(array)
+{
+    const len = array.length;
+
+    if (len == 1) return array;
+
+    const middleIndex = Math.ceil(len / 2);
+
+    let leftList = array.slice(0, middleIndex);
+    let rightList = array.slice(middleIndex, len);
+
+    leftList = mergeSort(leftList);
+    rightList = mergeSort(rightList);
+
+    return merge(leftList, rightList);
+}
+
+function merge(leftList, rightList)
+{
+    const sorted = [];
+
+    while (leftList.length > 0 && rightList.length > 0)
+    {
+        const leftItem = leftList[0];
+        const rightItem = rightList[0];
+        if (leftItem < rightItem)
+        {
+            sorted.push(leftItem);
+            leftList.shift(leftItem);
+        }
+        else
+        {
+            sorted.push(rightItem);
+            rightList.shift(rightItem);
+        }
+    }
+
+    while (leftList.length !== 0)
+    {
+        sorted.push(leftList[0]);
+        leftList.shift(leftList[0]);
+    }
+
+    while (rightList.length !== 0)
+    {
+        sorted.push(rightList[0]);
+        rightList.shift(rightList[0]);
+    }
+
+    return sorted;
 }
