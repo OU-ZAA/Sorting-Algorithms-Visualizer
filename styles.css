@@ -13,11 +13,18 @@
 
 .array-bar {
     width: 10px;
-    background-color: #d9d9d9;
+    background: black;
 }
 
 .generate-button {
     margin-top: 20px;
+}
+
+.sortingbtns-container {
+    display: flex;
+    justify-content: space-around;
+    max-width: 800px;
+    margin: 0 auto;
 }
 /* #nav {
     display: flex;
