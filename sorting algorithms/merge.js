@@ -5,7 +5,9 @@ mergeSortButton.addEventListener('click', async function()
     const arrElements = document.querySelectorAll('.array-bar');
     const start = 0;
     const end = arrElements.length - 1; 
+    disableBtns();
     await mergeSort(arrElements, start, end);
+    enableBtns();
 });
 
 async function mergeSort(ele, start, end)

@@ -2,7 +2,9 @@ const selectionSortButton = document.querySelector('#selection-sortbtn');
 
 selectionSortButton.addEventListener('click', async function() 
 {   
+    disableBtns();
     await selectionSort();
+    enableBtns()
 });
 
 async function selectionSort() 
@@ -14,7 +16,6 @@ async function selectionSort()
         arrElements[i].style.background = 'blue';
         for (let j = i + 1; j < arrElements.length; j++)
         {
-            console.log('in ith loop');
             arrElements[j].style.background = 'red';
             await wait();
             if (parseInt(arrElements[j].style.height) < parseInt(arrElements[min].style.height))

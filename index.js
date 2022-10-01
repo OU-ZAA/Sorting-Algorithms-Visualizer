@@ -16,8 +16,6 @@ arrayGenerator.addEventListener('click', function()
     renderArrayElements(unsortedArr); 
 });
 
-
-
 function generateNewArray(array) 
 {
     for (let i = 0; i < array.length; i++) 
@@ -54,4 +52,20 @@ function swap(el1, el2)
     const temp = el1.style.height;
     el1.style.height = el2.style.height;
     el2.style.height = temp;
+}
+
+function disableBtns()
+{
+    document.querySelector('#generate-button').disabled = true;
+    document.querySelector('#selection-sortbtn').disabled = true;
+    document.querySelector('#bubble-sortbtn').disabled = true;
+    document.querySelector('#merge-sortbtn').disabled = true;
+}
+
+function enableBtns()
+{
+    document.querySelector('#generate-button').disabled = false;
+    document.querySelector('#selection-sortbtn').disabled = false;
+    document.querySelector('#bubble-sortbtn').disabled = false;
+    document.querySelector('#merge-sortbtn').disabled = false;
 }
