@@ -2,37 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
     <link rel="stylesheet" href="styles.css">
     <script src="index.js" defer></script>
     <script src="sorting algorithms/selection.js" defer></script>
     <script src="sorting algorithms/bubble.js" defer></script>
     <script src="sorting algorithms/merge.js" defer></script>
-    <title>Sortring algorithms visualizer</title>
+    <title>Sortring Visualizer</title>
 </head>
 <body>
-    <!-- <h1>Sorting algorithms visualizer</h1>
-    <nav id="nav">
-        <div class="container">
-            <div>
-                <button id="generate-button">Generate New Array</button>
-            </div>
-            <div class="sortingbtns-container">
-                <button id="selection-sortbtn">Selection sort</button>
-                <button id="merge-sortbtn">Merge sort</button>
-                <button id="bubble-sortbtn">Bubble sort</button>
-            </div>
-        </div>
-    </nav> -->
-    <main id="main">
-        <div class="array-container"></div>
-        <div class="sortingbtns-container">
-            <button id="generate-button">Generate New Array</button>
-            <button id="selection-sortbtn">Selection sort</button>
-            <button id="merge-sortbtn">Merge sort</button>
-            <button id="bubble-sortbtn">Bubble sort</button>
-        </div>
-    </main>
+    <div id="toolbar">
+        <div id="generate-array">Generate New Array</div>
+        <div class="separator"></div>
+        <div class="array-size">Change Array Size & Sorting Speed</div>
+        <input type="range" id="change-size" min="0" max="60">
+        <div class="separator"></div>
+        <div class="algorithm-button">Merge Sort</div>
+        <div class="algorithm-button">Selection Sort</div>
+        <div class="algorithm-button">Bubble Sort</div>
+        <div class="separator" class="button"></div>
+        <div class="sort">Sort!</div>
+    </div>
+    <div class="array-container"></div>
 </body>
 </html>

@@ -1,6 +1,7 @@
-const arraySize = 42;
 const arrayContainer = document.querySelector('.array-container');
-const arrayGenerator = document.querySelector('#generate-button');
+const arrayGenerator = document.querySelector('#generate-array');
+const changeArray = document.querySelector('#change-size');
+let arraySize = 50;
 let unsortedArr = new Array(arraySize);
 
 document.addEventListener('DOMContentLoaded', function() 
@@ -16,6 +17,17 @@ arrayGenerator.addEventListener('click', function()
     renderArrayElements(unsortedArr); 
 });
 
+changeArray.addEventListener('change', function() 
+{
+    console.log('arraysize changed');
+    arraySize = 10 + parseInt(changeArray.value);
+    unsortedArr = new Array(arraySize);
+    generateNewArray(unsortedArr);
+    arrayContainer.innerHTML = "";
+    renderArrayElements(unsortedArr);
+    console.log(arraySize);
+});
+
 function generateNewArray(array) 
 {
     for (let i = 0; i < array.length; i++) 
@@ -26,12 +38,18 @@ function generateNewArray(array)
 
 function renderArrayElements(array) 
 {
+    const len = array.length;   
     array.map(function(value) 
     {
         const element = document.createElement('div');
         element.classList.add('array-bar')
         element.style.height = `${value}px`;
         arrayContainer.appendChild(element);
+        if (len > 50) element.style.width = '6px';
+        if (len > 50 && len <= 40) element.style.width = '8px';
+        if (len > 20 && len <= 30) element.style.width = '16px';
+        if (len > 10 && len <= 20) element.style.width = '20px';
+        if (array.length <= 10) element.style.width = '24px';
     });    
 }
 

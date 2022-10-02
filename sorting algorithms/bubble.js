@@ -18,18 +18,18 @@ async function bubbleSort()
         await wait();
         for (let j = 0; j < len - 1 - i; j++)
         {
-            arrElements[j].style.background = 'blue';
-            arrElements[j+1].style.background = 'blue';
+            arrElements[j].style.background = '#4D95E1';
+            arrElements[j+1].style.background = '#4D95E1';
             if (parseInt(arrElements[j].style.height) > parseInt(arrElements[j+1].style.height))
             {
                 await wait();
                 swap(arrElements[j], arrElements[j+1]);
             }
-            arrElements[j].style.background = 'black';
-            arrElements[j+1].style.background = 'black';
+            arrElements[j].style.background = '#00D7D4';
+            arrElements[j+1].style.background = '#00D7D4';
         }
-        arrElements[len-1-i].style.background = 'green';
+        arrElements[len-1-i].style.background = '#83EFA1';
         i++;
     }
-    arrElements[0].style.background = 'green';
+    arrElements[0].style.background = '#83EFA1';
 }

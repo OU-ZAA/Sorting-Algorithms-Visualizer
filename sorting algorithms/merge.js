@@ -31,14 +31,14 @@ async function merge(ele, low, mid, high)
     for (let i = 0; i < arrLeftSize; i++)
     {
         await wait();
-        ele[low+i].style.background = 'orange';
+        ele[low+i].style.background = '#BC8637';
         left[i] = ele[low+i].style.height;
     }
 
     for (let i = 0; i < arrRightSize; i++)
     {
         await wait();
-        ele[mid+1+i].style.background = 'yellow';
+        ele[mid+1+i].style.background = '#F9F871';
         right[i] = ele[mid+1+i].style.height;
     }
     await wait();
@@ -50,11 +50,11 @@ async function merge(ele, low, mid, high)
         {
             if ((arrLeftSize + arrRightSize) === ele.length)
             {
-                ele[k].style.background = 'green';
+                ele[k].style.background = '#83EFA1';
             }
             else
             {
-                ele[k].style.background = 'lightgreen';
+                ele[k].style.background = '#BDF685';
             }
             ele[k].style.height = left[i];
             i++;
@@ -64,11 +64,11 @@ async function merge(ele, low, mid, high)
         {
             if ((arrLeftSize + arrRightSize) === ele.length)
             {
-                ele[k].style.background = 'green';
+                ele[k].style.background = '#83EFA1';
             }
             else
             {
-                ele[k].style.background = 'lightgreen';
+                ele[k].style.background = '#BDF685';
             }
             ele[k].style.height = right[j];
             j++;
@@ -79,11 +79,11 @@ async function merge(ele, low, mid, high)
     {
         if ((arrLeftSize + arrRightSize) === ele.length)
         {
-            ele[k].style.background = 'green';
+            ele[k].style.background = '#83EFA1';
         }
         else
         {
-            ele[k].style.background = 'lightgreen';
+            ele[k].style.background = '#BDF685';
         }
         ele[k].style.height = left[i];
         i++;
@@ -93,11 +93,11 @@ async function merge(ele, low, mid, high)
     {
         if ((arrLeftSize + arrRightSize) === ele.length)
         {
-            ele[k].style.background = 'green';
+            ele[k].style.background = '#83EFA1';
         }
         else
         {
-            ele[k].style.background = 'lightgreen';
+            ele[k].style.background = '#BDF685';
         }
         ele[k].style.height = right[j];
         j++;
