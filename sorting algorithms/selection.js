@@ -1,4 +1,3 @@
-const selectionSortButton = document.querySelector('#selection-sortbtn');
 
 selectionSortButton.addEventListener('click', async function() 
 {   

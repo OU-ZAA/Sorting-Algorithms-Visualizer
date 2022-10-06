@@ -1,5 +1,3 @@
-const bubbleSortButton = document.querySelector('#bubble-sortbtn');
-
 
 bubbleSortButton.addEventListener('click', async function()
 {

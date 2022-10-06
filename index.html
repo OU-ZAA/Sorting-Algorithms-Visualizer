@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <script src="index.js" defer></script>
     <script src="sorting algorithms/selection.js" defer></script>
@@ -13,16 +13,14 @@
 </head>
 <body>
     <div id="toolbar">
-        <div id="generate-array">Generate New Array</div>
+        <button id="generate-array">Generate New Array</button>
         <div class="separator"></div>
         <div class="array-size">Change Array Size & Sorting Speed</div>
         <input type="range" id="change-size" min="0" max="60">
-        <div class="separator"></div>
-        <div class="algorithm-button">Merge Sort</div>
-        <div class="algorithm-button">Selection Sort</div>
-        <div class="algorithm-button">Bubble Sort</div>
-        <div class="separator" class="button"></div>
-        <div class="sort">Sort!</div>
+        <button class="separator"></button>
+        <button class="algorithm-button" id="merge-sort">Merge Sort</button>
+        <button class="algorithm-button" id="selection-sort">Selection Sort</button>
+        <button class="algorithm-button" id="bubble-sort">Bubble Sort</button>
     </div>
     <div class="array-container"></div>
 </body>

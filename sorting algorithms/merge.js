@@ -1,4 +1,3 @@
-const mergeSortButton = document.querySelector('#merge-sortbtn');
 
 mergeSortButton.addEventListener('click', async function() 
 {

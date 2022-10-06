@@ -1,8 +1,13 @@
 const arrayContainer = document.querySelector('.array-container');
 const arrayGenerator = document.querySelector('#generate-array');
 const changeArray = document.querySelector('#change-size');
+const mergeSortButton = document.querySelector('#merge-sort');
+const selectionSortButton = document.querySelector('#selection-sort');
+const bubbleSortButton = document.querySelector('#bubble-sort');
 let arraySize = 50;
+let delay = 80;
 let unsortedArr = new Array(arraySize);
+
 
 document.addEventListener('DOMContentLoaded', function() 
 {
@@ -19,13 +24,14 @@ arrayGenerator.addEventListener('click', function()
 
 changeArray.addEventListener('change', function() 
 {
-    console.log('arraysize changed');
-    arraySize = 10 + parseInt(changeArray.value);
+    const value = parseInt(changeArray.value);
+    arraySize = 10 + value;
     unsortedArr = new Array(arraySize);
     generateNewArray(unsortedArr);
     arrayContainer.innerHTML = "";
     renderArrayElements(unsortedArr);
-    console.log(arraySize);
+    if (value < 50) delay = value + 400;
+    if (value > 50) delay = value;
 });
 
 function generateNewArray(array) 
@@ -49,7 +55,7 @@ function renderArrayElements(array)
         if (len > 50 && len <= 40) element.style.width = '8px';
         if (len > 20 && len <= 30) element.style.width = '16px';
         if (len > 10 && len <= 20) element.style.width = '20px';
-        if (array.length <= 10) element.style.width = '24px';
+        if (len <= 10) element.style.width = '24px';
     });    
 }
 
@@ -61,7 +67,7 @@ function randonIntFromInterval(min, max)
 function wait()
 {
     return new Promise(resolve => {
-        setTimeout(() => resolve(''), 100)
+        setTimeout(() => resolve(''), delay)
     });
 }
 
@@ -74,16 +80,18 @@ function swap(el1, el2)
 
 function disableBtns()
 {
-    document.querySelector('#generate-button').disabled = true;
-    document.querySelector('#selection-sortbtn').disabled = true;
-    document.querySelector('#bubble-sortbtn').disabled = true;
-    document.querySelector('#merge-sortbtn').disabled = true;
+    arrayGenerator.disabled = true;
+    selectionSortButton.disabled = true;
+    bubbleSortButton.disabled = true;
+    mergeSortButton.disabled = true;
+    changeArray.disabled = true;
 }
 
 function enableBtns()
 {
-    document.querySelector('#generate-button').disabled = false;
-    document.querySelector('#selection-sortbtn').disabled = false;
-    document.querySelector('#bubble-sortbtn').disabled = false;
-    document.querySelector('#merge-sortbtn').disabled = false;
+    arrayGenerator.disabled = false;
+    selectionSortButton.disabled = false;
+    bubbleSortButton.disabled = false;
+    mergeSortButton.disabled = false;
+    changeArray.disabled = false;
 }
