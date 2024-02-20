@@ -82,3 +82,151 @@ function enableBtns() {
   mergeSortButton.disabled = false;
   changeArray.disabled = false;
 }
+
+bubbleSortButton.addEventListener("click", async function () {
+  disableBtns();
+  await bubbleSort();
+  enableBtns();
+});
+
+async function bubbleSort() {
+  const arrElements = document.querySelectorAll(".array-bar");
+  let i = 0;
+  const len = arrElements.length;
+  while (i < len) {
+    await wait();
+    for (let j = 0; j < len - 1 - i; j++) {
+      arrElements[j].style.background = "#4D95E1";
+      arrElements[j + 1].style.background = "#4D95E1";
+      if (
+        parseInt(arrElements[j].style.height) >
+        parseInt(arrElements[j + 1].style.height)
+      ) {
+        await wait();
+        swap(arrElements[j], arrElements[j + 1]);
+      }
+      arrElements[j].style.background = "#00D7D4";
+      arrElements[j + 1].style.background = "#00D7D4";
+    }
+    arrElements[len - 1 - i].style.background = "#83EFA1";
+    i++;
+  }
+  arrElements[0].style.background = "#83EFA1";
+}
+
+mergeSortButton.addEventListener("click", async function () {
+  const arrElements = document.querySelectorAll(".array-bar");
+  const start = 0;
+  const end = arrElements.length - 1;
+  disableBtns();
+  await mergeSort(arrElements, start, end);
+  enableBtns();
+});
+
+async function mergeSort(ele, start, end) {
+  if (start >= end) return;
+
+  const middleIndex = start + Math.floor((end - start) / 2);
+
+  await mergeSort(ele, start, middleIndex);
+  await mergeSort(ele, middleIndex + 1, end);
+  await merge(ele, start, middleIndex, end);
+}
+
+async function merge(ele, low, mid, high) {
+  const arrLeftSize = mid - low + 1;
+  const arrRightSize = high - mid;
+  let left = new Array(arrLeftSize);
+  let right = new Array(arrRightSize);
+
+  for (let i = 0; i < arrLeftSize; i++) {
+    await wait();
+    ele[low + i].style.background = "#BC8637";
+    left[i] = ele[low + i].style.height;
+  }
+
+  for (let i = 0; i < arrRightSize; i++) {
+    await wait();
+    ele[mid + 1 + i].style.background = "#F9F871";
+    right[i] = ele[mid + 1 + i].style.height;
+  }
+  await wait();
+  let i = 0,
+    j = 0,
+    k = low;
+  while (i < arrLeftSize && j < arrRightSize) {
+    await wait();
+    if (parseInt(left[i]) <= parseInt(right[j])) {
+      if (arrLeftSize + arrRightSize === ele.length) {
+        ele[k].style.background = "#83EFA1";
+      } else {
+        ele[k].style.background = "#BDF685";
+      }
+      ele[k].style.height = left[i];
+      i++;
+      k++;
+    } else {
+      if (arrLeftSize + arrRightSize === ele.length) {
+        ele[k].style.background = "#83EFA1";
+      } else {
+        ele[k].style.background = "#BDF685";
+      }
+      ele[k].style.height = right[j];
+      j++;
+      k++;
+    }
+  }
+  while (i < arrLeftSize) {
+    if (arrLeftSize + arrRightSize === ele.length) {
+      ele[k].style.background = "#83EFA1";
+    } else {
+      ele[k].style.background = "#BDF685";
+    }
+    ele[k].style.height = left[i];
+    i++;
+    k++;
+  }
+  while (j < arrRightSize) {
+    if (arrLeftSize + arrRightSize === ele.length) {
+      ele[k].style.background = "#83EFA1";
+    } else {
+      ele[k].style.background = "#BDF685";
+    }
+    ele[k].style.height = right[j];
+    j++;
+    k++;
+  }
+}
+
+selectionSortButton.addEventListener("click", async function () {
+  disableBtns();
+  await selectionSort();
+  enableBtns();
+});
+
+async function selectionSort() {
+  const arrElements = document.querySelectorAll(".array-bar");
+  for (let i = 0; i < arrElements.length; i++) {
+    let min = i;
+    arrElements[i].style.background = "#4D95E1";
+    for (let j = i + 1; j < arrElements.length; j++) {
+      arrElements[j].style.background = "#A92D66";
+      await wait();
+      if (
+        parseInt(arrElements[j].style.height) <
+        parseInt(arrElements[min].style.height)
+      ) {
+        if (min !== i) {
+          arrElements[min].style.background = "#00D7D4";
+        }
+        min = j;
+      } else {
+        arrElements[j].style.background = "#00D7D4";
+      }
+    }
+    await wait();
+    swap(arrElements[i], arrElements[min]);
+    arrElements[min].style.background = "#00D7D4";
+    arrElements[i].style.background = "#83EFA1";
+  }
+}
