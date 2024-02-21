@@ -102,6 +102,7 @@ input[type="range"]:focus::-webkit-slider-runnable-track {
 #sort {
   margin-left: 15px;
   cursor: pointer;
+  display: none;
 }
 
 #sort:hover {

@@ -5,6 +5,7 @@ const mergeSortButton = document.querySelector("#merge-sort");
 const selectionSortButton = document.querySelector("#selection-sort");
 const bubbleSortButton = document.querySelector("#bubble-sort");
 const toolBar = document.querySelector("#toolbar");
+const sortBtn = document.querySelector("#sort");
 let arraySize = 50;
 let delay = 80;
 let unsortedArr = new Array(arraySize);
@@ -31,46 +32,35 @@ changeArray.addEventListener("change", function () {
   if (value > 50) delay = value;
 });
 
-bubbleSortButton.addEventListener("click", async () => {
-  // disableBtns();
-  // await bubbleSort();
-  // enableBtns();
-  const sortBtn = document.querySelector("#sort");
-  if (!sortBtn) {
-    createSortBtn();
+bubbleSortButton.addEventListener("click", () => {
+  if (sortBtn.style.display === "") {
+    sortBtn.style.display = "block";
   }
   mergeSortButton.style.color = "white";
   selectionSortButton.style.color = "white";
   bubbleSortButton.style.color = "rgb(241, 94, 255)";
 });
 
-selectionSortButton.addEventListener("click", async function () {
-  // disableBtns();
-  // await selectionSort();
-  // enableBtns();
-  const sortBtn = document.querySelector("#sort");
-  if (!sortBtn) {
-    createSortBtn();
+selectionSortButton.addEventListener("click", () => {
+  if (sortBtn.style.display === "") {
+    sortBtn.style.display = "block";
   }
   mergeSortButton.style.color = "white";
   bubbleSortButton.style.color = "white";
   selectionSortButton.style.color = "rgb(241, 94, 255)";
 });
 
-mergeSortButton.addEventListener("click", async function () {
-  // const arrElements = document.querySelectorAll(".array-bar");
-  // const start = 0;
-  // const end = arrElements.length - 1;
-  // disableBtns();
-  // await mergeSort(arrElements, start, end);
-  // enableBtns();
-  const sortBtn = document.querySelector("#sort");
-  if (!sortBtn) {
-    createSortBtn();
+mergeSortButton.addEventListener("click", () => {
+  if (sortBtn.style.display === "") {
+    sortBtn.style.display = "block";
   }
   bubbleSortButton.style.color = "white";
   selectionSortButton.style.color = "white";
   mergeSortButton.style.color = "rgb(241, 94, 255)";
+});
+
+sortBtn.addEventListener("click", () => {
+  console.log("sort button clicked!!!!");
 });
 
 function generateNewArray(array) {
@@ -124,13 +114,6 @@ function enableBtns() {
   bubbleSortButton.disabled = false;
   mergeSortButton.disabled = false;
   changeArray.disabled = false;
-}
-
-function createSortBtn() {
-  const sortBtn = document.createElement("div");
-  sortBtn.textContent = "Sort!";
-  sortBtn.setAttribute("id", "sort");
-  toolBar.append(sortBtn);
 }
 
 async function bubbleSort() {
