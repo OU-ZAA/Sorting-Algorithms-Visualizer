@@ -4,6 +4,7 @@ const changeArray = document.querySelector("#change-size");
 const mergeSortButton = document.querySelector("#merge-sort");
 const selectionSortButton = document.querySelector("#selection-sort");
 const bubbleSortButton = document.querySelector("#bubble-sort");
+const toolBar = document.querySelector("#toolbar");
 let arraySize = 50;
 let delay = 80;
 let unsortedArr = new Array(arraySize);
@@ -28,6 +29,48 @@ changeArray.addEventListener("change", function () {
   renderArrayElements(unsortedArr);
   if (value < 50) delay = value + 400;
   if (value > 50) delay = value;
+});
+
+bubbleSortButton.addEventListener("click", async () => {
+  // disableBtns();
+  // await bubbleSort();
+  // enableBtns();
+  const sortBtn = document.querySelector("#sort");
+  if (!sortBtn) {
+    createSortBtn();
+  }
+  mergeSortButton.style.color = "white";
+  selectionSortButton.style.color = "white";
+  bubbleSortButton.style.color = "rgb(241, 94, 255)";
+});
+
+selectionSortButton.addEventListener("click", async function () {
+  // disableBtns();
+  // await selectionSort();
+  // enableBtns();
+  const sortBtn = document.querySelector("#sort");
+  if (!sortBtn) {
+    createSortBtn();
+  }
+  mergeSortButton.style.color = "white";
+  bubbleSortButton.style.color = "white";
+  selectionSortButton.style.color = "rgb(241, 94, 255)";
+});
+
+mergeSortButton.addEventListener("click", async function () {
+  // const arrElements = document.querySelectorAll(".array-bar");
+  // const start = 0;
+  // const end = arrElements.length - 1;
+  // disableBtns();
+  // await mergeSort(arrElements, start, end);
+  // enableBtns();
+  const sortBtn = document.querySelector("#sort");
+  if (!sortBtn) {
+    createSortBtn();
+  }
+  bubbleSortButton.style.color = "white";
+  selectionSortButton.style.color = "white";
+  mergeSortButton.style.color = "rgb(241, 94, 255)";
 });
 
 function generateNewArray(array) {
@@ -83,11 +126,12 @@ function enableBtns() {
   changeArray.disabled = false;
 }
 
-bubbleSortButton.addEventListener("click", async function () {
-  disableBtns();
-  await bubbleSort();
-  enableBtns();
-});
+function createSortBtn() {
+  const sortBtn = document.createElement("div");
+  sortBtn.textContent = "Sort!";
+  sortBtn.setAttribute("id", "sort");
+  toolBar.append(sortBtn);
+}
 
 async function bubbleSort() {
   const arrElements = document.querySelectorAll(".array-bar");
@@ -113,15 +157,6 @@ async function bubbleSort() {
   }
   arrElements[0].style.background = "#83EFA1";
 }
-
-mergeSortButton.addEventListener("click", async function () {
-  const arrElements = document.querySelectorAll(".array-bar");
-  const start = 0;
-  const end = arrElements.length - 1;
-  disableBtns();
-  await mergeSort(arrElements, start, end);
-  enableBtns();
-});
 
 async function mergeSort(ele, start, end) {
   if (start >= end) return;
@@ -197,12 +232,6 @@ async function merge(ele, low, mid, high) {
     k++;
   }
 }
-
-selectionSortButton.addEventListener("click", async function () {
-  disableBtns();
-  await selectionSort();
-  enableBtns();
-});
 
 async function selectionSort() {
   const arrElements = document.querySelectorAll(".array-bar");

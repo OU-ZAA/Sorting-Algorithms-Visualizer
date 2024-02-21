@@ -99,7 +99,11 @@ input[type="range"]:focus::-webkit-slider-runnable-track {
   color: rgb(212, 212, 212);
 }
 
-.sort {
+#sort {
   margin-left: 15px;
   cursor: pointer;
+}
+
+#sort:hover {
+  color: rgb(241, 94, 255);
 }
