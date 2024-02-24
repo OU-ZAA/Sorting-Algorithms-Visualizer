@@ -6,7 +6,7 @@ const selectionSortButton = document.querySelector("#selection-sort");
 const bubbleSortButton = document.querySelector("#bubble-sort");
 const toolBar = document.querySelector("#toolbar");
 const sortBtn = document.querySelector("#sort");
-let arraySize = 50;
+let arraySize = 87;
 let delay = 80;
 let unsortedArr = new Array(arraySize);
 
@@ -23,7 +23,7 @@ arrayGenerator.addEventListener("click", function () {
 
 changeArray.addEventListener("change", function () {
   const value = parseInt(changeArray.value);
-  arraySize = 10 + value;
+  arraySize = Math.floor((value + 3) * 1.65);
   unsortedArr = new Array(arraySize);
   generateNewArray(unsortedArr);
   arrayContainer.innerHTML = "";
@@ -59,28 +59,37 @@ mergeSortButton.addEventListener("click", () => {
   mergeSortButton.style.color = "rgb(241, 94, 255)";
 });
 
-sortBtn.addEventListener("click", () => {
-  console.log("sort button clicked!!!!");
-});
-
 function generateNewArray(array) {
   for (let i = 0; i < array.length; i++) {
-    array[i] = randonIntFromInterval(5, 500);
+    array[i] = randonIntFromInterval(20, 600);
   }
 }
 
 function renderArrayElements(array) {
   const len = array.length;
+  console.log(len);
   array.map(function (value) {
     const element = document.createElement("div");
     element.classList.add("array-bar");
     element.style.height = `${value}px`;
+    const width = Math.floor(window.innerWidth / (len * 3));
+    element.style.width = `${width}px`;
+    if (len < 170) element.style.marginLeft = "2px";
+    if (len < 100) element.style.marginLeft = "3px";
+    if (len < 50) element.style.marginLeft = "3.5px";
+    if (len < 20) element.style.marginLeft = "4px";
+    if (len < 11) element.style.marginLeft = "6px";
+    if (len < 8) element.style.marginLeft = "8px";
+    if (len < 5) element.style.marginLeft = "10px";
+    element.textContent = value;
+    element.style.color = len < 25 ? "white" : "transparent";
+    if (width > 20) element.style.fontSize = "10px";
+    if (width > 30) element.style.fontSize = "12px";
+    if (width > 40) element.style.fontSize = "14px";
+    if (width > 50) element.style.fontSize = "16px";
+    if (width > 60) element.style.fontSize = "18px";
+    if (width > 70) element.style.fontSize = "20px";
     arrayContainer.appendChild(element);
-    if (len > 50) element.style.width = "6px";
-    if (len > 50 && len <= 40) element.style.width = "8px";
-    if (len > 20 && len <= 30) element.style.width = "16px";
-    if (len > 10 && len <= 20) element.style.width = "20px";
-    if (len <= 10) element.style.width = "24px";
   });
 }
 
