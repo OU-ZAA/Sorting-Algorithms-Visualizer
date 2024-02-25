@@ -15,11 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
   renderArrayElements(unsortedArr);
 });
 
-arrayGenerator.addEventListener("click", function () {
-  generateNewArray(unsortedArr);
-  arrayContainer.innerHTML = "";
-  renderArrayElements(unsortedArr);
-});
+arrayGenerator.addEventListener("click", generateAndRenderArray);
 
 changeArray.addEventListener("change", function () {
   const value = parseInt(changeArray.value);
@@ -36,6 +32,7 @@ bubbleSortButton.addEventListener("click", () => {
   if (sortBtn.style.display === "") {
     sortBtn.style.display = "block";
   }
+  sortBtn.setAttribute("data-algo", "bubble-sort");
   mergeSortButton.style.color = "white";
   selectionSortButton.style.color = "white";
   bubbleSortButton.style.color = "rgb(241, 94, 255)";
@@ -45,6 +42,7 @@ selectionSortButton.addEventListener("click", () => {
   if (sortBtn.style.display === "") {
     sortBtn.style.display = "block";
   }
+  sortBtn.setAttribute("data-algo", "selection-sort");
   mergeSortButton.style.color = "white";
   bubbleSortButton.style.color = "white";
   selectionSortButton.style.color = "rgb(241, 94, 255)";
@@ -54,9 +52,20 @@ mergeSortButton.addEventListener("click", () => {
   if (sortBtn.style.display === "") {
     sortBtn.style.display = "block";
   }
+  sortBtn.setAttribute("data-algo", "merge-sort");
   bubbleSortButton.style.color = "white";
   selectionSortButton.style.color = "white";
   mergeSortButton.style.color = "rgb(241, 94, 255)";
+});
+
+sortBtn.addEventListener("click", async () => {
+  const chosenAlgo = sortBtn.dataset.algo;
+  if (chosenAlgo === "merge-sort") {
+    const ele = document.querySelectorAll(".array-bar");
+    disableBtns();
+    await mergeSort(ele, 0, ele.length - 1);
+    enableBtns();
+  }
 });
 
 function generateNewArray(array) {
@@ -64,10 +73,14 @@ function generateNewArray(array) {
     array[i] = randonIntFromInterval(20, 600);
   }
 }
+function generateAndRenderArray() {
+  generateNewArray(unsortedArr);
+  arrayContainer.innerHTML = "";
+  renderArrayElements(unsortedArr);
+}
 
 function renderArrayElements(array) {
   const len = array.length;
-  console.log(len);
   array.map(function (value) {
     const element = document.createElement("div");
     element.classList.add("array-bar");
@@ -110,19 +123,15 @@ function swap(el1, el2) {
 }
 
 function disableBtns() {
-  arrayGenerator.disabled = true;
-  selectionSortButton.disabled = true;
-  bubbleSortButton.disabled = true;
-  mergeSortButton.disabled = true;
-  changeArray.disabled = true;
+  arrayGenerator.setAttribute("class", "disabled");
+  sortBtn.setAttribute("class", "disabled");
+  document.querySelector("#array-size").setAttribute("class", "disabled");
 }
 
 function enableBtns() {
-  arrayGenerator.disabled = false;
-  selectionSortButton.disabled = false;
-  bubbleSortButton.disabled = false;
-  mergeSortButton.disabled = false;
-  changeArray.disabled = false;
+  arrayGenerator.removeAttribute("class", "disabled");
+  sortBtn.removeAttribute("class", "disabled");
+  document.querySelector("#array-size").removeAttribute("class", "disabled");
 }
 
 async function bubbleSort() {
@@ -141,6 +150,7 @@ async function bubbleSort() {
         await wait();
         swap(arrElements[j], arrElements[j + 1]);
       }
+      await wait();
       arrElements[j].style.background = "#00D7D4";
       arrElements[j + 1].style.background = "#00D7D4";
     }

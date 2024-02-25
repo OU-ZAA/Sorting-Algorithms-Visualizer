@@ -47,7 +47,7 @@
   margin: 0 15px;
 }
 
-.array-size {
+#array-size {
   margin: 0 15px;
 }
 
@@ -109,4 +109,9 @@ input[type="range"]:focus::-webkit-slider-runnable-track {
 
 #sort:hover {
   color: rgb(241, 94, 255);
+}
+
+.disabled {
+  pointer-events: none;
+  color: rgba(214, 29, 29, 0.8);
 }
