@@ -70,7 +70,7 @@ sortBtn.addEventListener("click", async () => {
 
 function generateNewArray(array) {
   for (let i = 0; i < array.length; i++) {
-    array[i] = randonIntFromInterval(20, 600);
+    array[i] = randonIntFromInterval(50, 600);
   }
 }
 function generateAndRenderArray() {
@@ -178,58 +178,71 @@ async function merge(ele, low, mid, high) {
 
   for (let i = 0; i < arrLeftSize; i++) {
     await wait();
-    ele[low + i].style.background = "#BC8637";
-    left[i] = ele[low + i].style.height;
+    const softOrange = "#f1993e";
+    ele[low + i].style.background = softOrange;
+    left[i] = parseInt(ele[low + i].style.height.replace("px", ""));
   }
 
   for (let i = 0; i < arrRightSize; i++) {
     await wait();
-    ele[mid + 1 + i].style.background = "#F9F871";
-    right[i] = ele[mid + 1 + i].style.height;
+    const brightYellow = "#f0f13e";
+    ele[mid + 1 + i].style.background = brightYellow;
+    right[i] = parseInt(ele[mid + 1 + i].style.height.replace("px", ""));
   }
+
   await wait();
+  const limeGreen = "#83EFA1";
+  const brightGreen = "#70d30f";
   let i = 0,
     j = 0,
     k = low;
   while (i < arrLeftSize && j < arrRightSize) {
     await wait();
-    if (parseInt(left[i]) <= parseInt(right[j])) {
+    if (left[i] <= right[j]) {
       if (arrLeftSize + arrRightSize === ele.length) {
-        ele[k].style.background = "#83EFA1";
+        ele[k].style.background = limeGreen;
       } else {
-        ele[k].style.background = "#BDF685";
+        ele[k].style.background = brightGreen;
       }
-      ele[k].style.height = left[i];
+      ele[k].style.height = `${left[i]}px`;
+      ele[k].textContent = left[i];
       i++;
       k++;
     } else {
       if (arrLeftSize + arrRightSize === ele.length) {
-        ele[k].style.background = "#83EFA1";
+        ele[k].style.background = limeGreen;
       } else {
-        ele[k].style.background = "#BDF685";
+        ele[k].style.background = brightGreen;
       }
-      ele[k].style.height = right[j];
+      ele[k].style.height = `${right[j]}px`;
+      ele[k].textContent = right[j];
       j++;
       k++;
     }
   }
+
   while (i < arrLeftSize) {
+    await wait();
     if (arrLeftSize + arrRightSize === ele.length) {
-      ele[k].style.background = "#83EFA1";
+      ele[k].style.background = limeGreen;
     } else {
-      ele[k].style.background = "#BDF685";
+      ele[k].style.background = brightGreen;
     }
-    ele[k].style.height = left[i];
+    ele[k].style.height = `${left[i]}px`;
+    ele[k].textContent = left[i];
     i++;
     k++;
   }
+
   while (j < arrRightSize) {
+    await wait();
     if (arrLeftSize + arrRightSize === ele.length) {
-      ele[k].style.background = "#83EFA1";
+      ele[k].style.background = limeGreen;
     } else {
-      ele[k].style.background = "#BDF685";
+      ele[k].style.background = brightGreen;
     }
-    ele[k].style.height = right[j];
+    ele[k].style.height = `${right[j]}px`;
+    ele[k].textContent = right[j];
     j++;
     k++;
   }
