@@ -7,8 +7,8 @@ const bubbleSortButton = document.querySelector("#bubble-sort");
 const toolBar = document.querySelector("#toolbar");
 const sortBtn = document.querySelector("#sort");
 let arraySize = 87;
-let delay = 80;
 let unsortedArr = new Array(arraySize);
+let delay = (1 / arraySize) * 100;
 
 document.addEventListener("DOMContentLoaded", function () {
   generateNewArray(unsortedArr);
@@ -24,8 +24,7 @@ changeArray.addEventListener("change", function () {
   generateNewArray(unsortedArr);
   arrayContainer.innerHTML = "";
   renderArrayElements(unsortedArr);
-  if (value < 50) delay = value + 400;
-  if (value > 50) delay = value;
+  delay = (1 / arraySize) * 100;
 });
 
 bubbleSortButton.addEventListener("click", () => {
