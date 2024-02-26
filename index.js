@@ -8,7 +8,7 @@ const toolBar = document.querySelector("#toolbar");
 const sortBtn = document.querySelector("#sort");
 let arraySize = 87;
 let unsortedArr = new Array(arraySize);
-let delay = (1 / arraySize) * 100;
+let delay = (1 / arraySize) * 1000;
 
 document.addEventListener("DOMContentLoaded", function () {
   generateNewArray(unsortedArr);
@@ -24,7 +24,7 @@ changeArray.addEventListener("change", function () {
   generateNewArray(unsortedArr);
   arrayContainer.innerHTML = "";
   renderArrayElements(unsortedArr);
-  delay = (1 / arraySize) * 100;
+  delay = (1 / arraySize) * 1000;
 });
 
 bubbleSortButton.addEventListener("click", () => {
@@ -63,6 +63,10 @@ sortBtn.addEventListener("click", async () => {
     const ele = document.querySelectorAll(".array-bar");
     disableBtns();
     await mergeSort(ele, 0, ele.length - 1);
+    enableBtns();
+  } else if (chosenAlgo === "bubble-sort") {
+    disableBtns();
+    await bubbleSort();
     enableBtns();
   }
 });
@@ -115,12 +119,6 @@ function wait() {
   });
 }
 
-function swap(el1, el2) {
-  const temp = el1.style.height;
-  el1.style.height = el2.style.height;
-  el2.style.height = temp;
-}
-
 function disableBtns() {
   arrayGenerator.setAttribute("class", "disabled");
   sortBtn.setAttribute("class", "disabled");
@@ -137,11 +135,13 @@ async function bubbleSort() {
   const arrElements = document.querySelectorAll(".array-bar");
   let i = 0;
   const len = arrElements.length;
+  const limeGreen = "#83EFA1";
   while (i < len) {
     await wait();
     for (let j = 0; j < len - 1 - i; j++) {
-      arrElements[j].style.background = "#4D95E1";
-      arrElements[j + 1].style.background = "#4D95E1";
+      const softRed = "#e14f4d";
+      arrElements[j].style.background = softRed;
+      arrElements[j + 1].style.background = softRed;
       if (
         parseInt(arrElements[j].style.height) >
         parseInt(arrElements[j + 1].style.height)
@@ -150,13 +150,22 @@ async function bubbleSort() {
         swap(arrElements[j], arrElements[j + 1]);
       }
       await wait();
-      arrElements[j].style.background = "#00D7D4";
-      arrElements[j + 1].style.background = "#00D7D4";
+      const brightBlue = "rgba(66, 134, 244, 0.8)";
+      arrElements[j].style.background = brightBlue;
+      arrElements[j + 1].style.background = brightBlue;
     }
-    arrElements[len - 1 - i].style.background = "#83EFA1";
+    arrElements[len - 1 - i].style.background = limeGreen;
     i++;
   }
-  arrElements[0].style.background = "#83EFA1";
+  arrElements[0].style.background = limeGreen;
+}
+
+function swap(el1, el2) {
+  const temp = el1.style.height;
+  el1.style.height = el2.style.height;
+  el1.textContent = el2.style.height.replace("px", "");
+  el2.style.height = temp;
+  el2.textContent = temp.replace("px", "");
 }
 
 async function mergeSort(ele, start, end) {
