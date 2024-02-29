@@ -2,7 +2,7 @@ const arrayContainer = document.querySelector(".array-container");
 const arrayGenerator = document.querySelector("#generate-array");
 const changeArray = document.querySelector("#change-size");
 const mergeSortButton = document.querySelector("#merge-sort");
-const selectionSortButton = document.querySelector("#selection-sort");
+const quickSortButton = document.querySelector("#quick-sort");
 const bubbleSortButton = document.querySelector("#bubble-sort");
 const toolBar = document.querySelector("#toolbar");
 const sortBtn = document.querySelector("#sort");
@@ -33,18 +33,18 @@ bubbleSortButton.addEventListener("click", () => {
   }
   sortBtn.setAttribute("data-algo", "bubble-sort");
   mergeSortButton.style.color = "white";
-  selectionSortButton.style.color = "white";
+  quickSortButton.style.color = "white";
   bubbleSortButton.style.color = "rgb(241, 94, 255)";
 });
 
-selectionSortButton.addEventListener("click", () => {
+quickSortButton.addEventListener("click", () => {
   if (sortBtn.style.display === "") {
     sortBtn.style.display = "block";
   }
-  sortBtn.setAttribute("data-algo", "selection-sort");
+  sortBtn.setAttribute("data-algo", "quick-sort");
   mergeSortButton.style.color = "white";
   bubbleSortButton.style.color = "white";
-  selectionSortButton.style.color = "rgb(241, 94, 255)";
+  quickSortButton.style.color = "rgb(241, 94, 255)";
 });
 
 mergeSortButton.addEventListener("click", () => {
@@ -53,14 +53,14 @@ mergeSortButton.addEventListener("click", () => {
   }
   sortBtn.setAttribute("data-algo", "merge-sort");
   bubbleSortButton.style.color = "white";
-  selectionSortButton.style.color = "white";
+  quickSortButton.style.color = "white";
   mergeSortButton.style.color = "rgb(241, 94, 255)";
 });
 
 sortBtn.addEventListener("click", async () => {
   const chosenAlgo = sortBtn.dataset.algo;
+  const ele = document.querySelectorAll(".array-bar");
   if (chosenAlgo === "merge-sort") {
-    const ele = document.querySelectorAll(".array-bar");
     disableBtns();
     await mergeSort(ele, 0, ele.length - 1);
     enableBtns();
@@ -68,6 +68,8 @@ sortBtn.addEventListener("click", async () => {
     disableBtns();
     await bubbleSort();
     enableBtns();
+  } else if (chosenAlgo === "quick-sort") {
+    quickSort(ele, 0, ele.length - 1);
   }
 });
 
@@ -256,29 +258,51 @@ async function merge(ele, low, mid, high) {
   }
 }
 
-async function selectionSort() {
-  const arrElements = document.querySelectorAll(".array-bar");
-  for (let i = 0; i < arrElements.length; i++) {
-    let min = i;
-    arrElements[i].style.background = "#4D95E1";
-    for (let j = i + 1; j < arrElements.length; j++) {
-      arrElements[j].style.background = "#A92D66";
-      await wait();
-      if (
-        parseInt(arrElements[j].style.height) <
-        parseInt(arrElements[min].style.height)
-      ) {
-        if (min !== i) {
-          arrElements[min].style.background = "#00D7D4";
-        }
-        min = j;
-      } else {
-        arrElements[j].style.background = "#00D7D4";
-      }
-    }
-    await wait();
-    swap(arrElements[i], arrElements[min]);
-    arrElements[min].style.background = "#00D7D4";
-    arrElements[i].style.background = "#83EFA1";
+async function quickSort(ele, lo, hi) {
+  if (lo >= hi) {
+    return;
   }
+
+  const pivotIdx = await partition(ele, lo, hi);
+
+  quickSort(ele, lo, pivotIdx - 1);
+  quickSort(ele, pivotIdx + 1, hi);
+}
+
+async function partition(ele, lo, hi) {
+  const pivot = ele[hi];
+  pivot.style.background = "#f0f13e";
+  const limeGreen = "#83EFA1";
+  const lightBlue = "#70d3f1";
+
+  let idx = lo - 1;
+  await wait();
+  ele[idx + 1].style.background = lightBlue;
+
+  for (let i = lo; i < hi; i++) {
+    await wait();
+    ele[i].style.background = lightBlue;
+    if (
+      parseInt(ele[i].style.height) <=
+      parseInt(pivot.style.height.replace("px", ""))
+    ) {
+      idx++;
+      swap(ele[idx], ele[i]);
+      await wait();
+      ele[i].style.background = limeGreen;
+      ele[idx].style.background = limeGreen;
+      continue;
+    }
+
+    await wait();
+    ele[i].style.background = "rgba(66, 134, 244, 0.8)";
+  }
+
+  idx++;
+  await wait();
+  pivot.style.background = limeGreen;
+  ele[idx].style.background = limeGreen;
+  swap(ele[idx], pivot);
+
+  return idx;
 }
