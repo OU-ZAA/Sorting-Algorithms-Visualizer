@@ -69,7 +69,9 @@ sortBtn.addEventListener('click', async () => {
 		await bubbleSort()
 		enableBtns()
 	} else if (chosenAlgo === 'quick-sort') {
-		quickSort(ele, 0, ele.length - 1)
+		disableBtns()
+		await quickSort(ele, 0, ele.length - 1)
+		enableBtns()
 	}
 })
 
@@ -260,49 +262,45 @@ async function merge(ele, low, mid, high) {
 
 async function quickSort(ele, lo, hi) {
 	if (lo >= hi) {
+		await wait()
+		ele[lo].style.background = '#83EFA1'
 		return
 	}
 
 	const pivotIdx = await partition(ele, lo, hi)
+	ele[pivotIdx].style.background = '#83EFA1'
 
-	quickSort(ele, lo, pivotIdx - 1)
-	quickSort(ele, pivotIdx + 1, hi)
+	await quickSort(ele, lo, pivotIdx - 1)
+	await quickSort(ele, pivotIdx + 1, hi)
 }
 
 async function partition(ele, lo, hi) {
 	const pivot = ele[hi]
+	await wait()
 	pivot.style.background = '#f0f13e'
-	const limeGreen = '#83EFA1'
-	const lightBlue = '#70d3f1'
 
 	let idx = lo - 1
-	await wait()
-	ele[idx + 1].style.background = lightBlue
 
 	for (let i = lo; i < hi; i++) {
-		await wait()
-		ele[i].style.background = lightBlue
 		if (
 			parseInt(ele[i].style.height) <=
 			parseInt(pivot.style.height.replace('px', ''))
 		) {
 			idx++
+			await wait()
+			ele[i].style.background = 'red'
+			ele[idx].style.background = 'red'
 			swap(ele[idx], ele[i])
 			await wait()
-			ele[i].style.background = limeGreen
-			ele[idx].style.background = limeGreen
-			continue
+			ele[i].style.background = 'rgba(66, 134, 244, 0.8)'
+			ele[idx].style.background = 'rgba(66, 134, 244, 0.8)'
 		}
-
-		await wait()
-		ele[i].style.background = 'rgba(66, 134, 244, 0.8)'
 	}
 
 	idx++
-	await wait()
-	pivot.style.background = limeGreen
-	ele[idx].style.background = limeGreen
 	swap(ele[idx], pivot)
+	await wait()
+	pivot.style.background = 'rgba(66, 134, 244, 0.8)'
 
 	return idx
 }
